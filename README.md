@@ -10,7 +10,14 @@ Esperant que el nostre projecte TapatApp, sigui del seu interès.
 
 ## objectius del projecte
 control del temps del pegat de l'infant
+control del tractament de la 1/2 de temps que el infant esta despert
+control del tractament de temps que el infant dorm
 restrejar quan hem de treure-la
+compartir informació del tractament amb el servei mèdic
+Acces restringit per tipus d'usuari al control del pegat
+1/2 temps despert
+temps fix 
+temps dormit
 
 
 ## Configuracio Github VScode.
