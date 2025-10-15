@@ -14,11 +14,11 @@ control del tractament de la 1/2 de temps que el infant esta despert
 control del tractament de temps que el infant dorm
 restrejar quan hem de treure-la
 compartir informació del tractament amb el servei mèdic
-Acces restringit per tipus d'usuari al control del pegat
-1/2 temps despert
-temps fix 
-temps dormit
+Acces restringit per tipus d'usuari al control del pegat.applicacio multiusuari
+desenvolupar una app movil
 
 
-## Configuracio Github VScode.
-aqui configurem VScode
+
+## Actors de la App
+Administrador
+Servei medic ( metges, oftalmolegs)
