@@ -26,3 +26,41 @@ Esperant que el nostre projecte TapatApp, sigui del seu interès.
 -   Cuidadors (mestres, avis)
 -   Nen/a
 -   "Public"
+ Requisits Funcionals RF i Requisits No Funcionals
+RF: Requisits Funcionals
+RF1: Registre
+ROL: Tutor
+
+Com a Usuari Tutor vull poder registrar-me a l'aplicació amb correu electrònic, nom i password, per poder accedir-hi.
+
+RF2: Login
+ROL: Tutor
+
+Com a Usuari Tutor vull poder accedir de forma segura a l'aplicació amb correu electrònic i password
+
+RF3: Alta infant
+ROL: Tutor
+
+Com a Usuari Tutor vull poder registrar un infant per poder portar el control del Pegat
+
+RF4: Control Pegat infant
+ROL: Tutor
+
+Com a Usuari Tutor vull poder portar el control del Pegat. Quant de temps porta el pegat quan esta despert.
+
+RF5: Control Tractament
+ROL: Tutor
+
+Com a Usuari Tuator vull poder configurar el tipus de tractament de l'infant. Per temps fix o la meitat del temps que està despert.
+
+RF6: Alta Cuidadors
+ROL: Tutor
+
+Com a Usuari Tutor vull poder afegir cuidadors per a que puguin portar també el control del pegat
+
+RF7: Cuidadors control pegat
+ROL: Cuidador
+
+Com a Usuari Cuidador vull poder portar el control del Pegat. Quant de temps porta el pegat quan esta despert.
+
+RNF
