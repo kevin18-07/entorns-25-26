@@ -1,4 +1,10 @@
+```mermaid
 flowchart LR
+
+    subgraph Bloc_Client [Bloc Client]
+        Vista["Vista<br/>(input Nom)"]
+        DaoClient["DaoClient<br/>(getUserName)"]
+    end
 
     subgraph Bloc_Servidor [Bloc Servidor]
         WebService["webService<br/>(getUserByName)"]
@@ -9,4 +15,3 @@ flowchart LR
     Vista --> DaoClient
     DaoClient -- HTTP --> WebService
     WebService --> DaoServer
-    DaoServer --> DataUsers
