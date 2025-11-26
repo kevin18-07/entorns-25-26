@@ -1,9 +1,4 @@
-
-
-    subgraph Bloc_Client [Bloc Client]
-        Vista["Vista<br/>(input Nom)"]
-        DaoClient["DaoClient<br/>(getUserName)"]
-    end
+flowchart LR
 
     subgraph Bloc_Servidor [Bloc Servidor]
         WebService["webService<br/>(getUserByName)"]
