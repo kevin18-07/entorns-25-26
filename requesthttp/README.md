@@ -7,7 +7,7 @@ Entorns de Desenvolupament 25-26
 
 ## Requisits Tècnics TapatApp
 
-[Requisits Tècnics TapatApp](requisitsTecTapatApp.md)
+[Requisits Tècnics TapatApp](requesthttp/requisitsTecnicsTapatapp.md)
 
 
 ## Configuració GitHub VsCode
