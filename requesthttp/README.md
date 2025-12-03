@@ -3,11 +3,11 @@ Entorns de Desenvolupament 25-26
 
 ## Requisits Funcionals TapatApp
 
-[Requisits Funcionals TapatApp](http/requisitsFuncionalsTapatapp.md)
+[Requisits Funcionals TapatApp](entorns-25-26/requesthttp/requisitsFuncionalsTapatapp.md)
 
 ## Requisits Tècnics TapatApp
 
-[Requisits Tècnics TapatApp](thttp/requisitsTecnicsTapatapp.md)
+[Requisits Tècnics TapatApp](entorns-25-26/requesthttp/requisitsFuncionalsTapatapp.md)
 
 
 ## Configuració GitHub VsCode
@@ -22,14 +22,14 @@ Aquí configurem VSCode
 - Iteració 4: 9/03 - 8/04 (11h) - Vistes Wireframes i BBDD
 - Iteració 5: 13/04 - 29/04 (9h) - Pegat i Testing
 
-[Projecte a GiutHub]([https://github.com/users/amallad2/projects/9/views/1](https://github.com/users/kevin18-07/projects/1/views/1?layout=board))
+[Projecte a GiutHub](https://github.com/users/kevin18-07/projects/1/views/1?layout=board])
 
 # Prototip 1
 
 Connectar Client / Servidor.
 Consultar dades d'usuari per nom.
 
-[Diagrama d'arquitectura prototip 1](chart/diagrama.md)
+[Diagrama d'arquitectura prototip 1](entorns-25-26/chart/diagrama.md)
 
 ## End-Points WebService
 
