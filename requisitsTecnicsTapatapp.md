@@ -1,63 +1,51 @@
-# Requisits Tècnics TapatApp
+# Requisits tecnics tapatapp
 
-## Arquitectura
+## arquitectura
+[client servidor](charts/mvc-generic.mermald)
+## 1. Backend (servidor i gestio de dades)
+El backend sera el cor del sistema, encarregar de gestionar dades, usuaris, i la logica del sistema
 
-[Client Servidor](charts/mvc-generic.mermaid)
+### a. requisits del servidor
+-   allotjament: hosting compartit
+-   base de dades: mysql o mariabd
+-   sistema operatiu: windows o linux
+-   webservice: RESTFul libreria Python Flask
 
-## 1. Backend (Servidor i Gestió de Dades)
-
-El backend serà el cor del sistema, encarregat de gestionar dades, usuaris, i la lògica del sistema.
-
-### a. Requisits del Servidor
-
-- Allotjament: Hosting compartit
-- Base de dades: Mysql o MariaDB
-- Sistema Operatiu: Linux o Windows
-- WebService: RESTFul  llibreria Python Flask
-
-### b. Llenguatges de Programació
-
+### b. Lenguatges de Programació        
 Python
 
 ### c. Seguretat
-
-- Autenticació i autorització pels usuaris 
-- Xifratge de dades HTTPS
-- Còpies de seguretat automàtiques 
+-   autenticacio i autorizacio pels usuaris
+-   xifratge de dades HTTPS
+-   copies de seguretat automatiques
 
 ## 2. Frontend
 
-### a. Tipus de Clients 
+### a. Tipus de client
+-   app mobil : android
+- consola python
+-   Framework Multiplataforma: Flutter (apps IOS android , web, desktop)
 
-- App Mòbil: Android
-- Consola Python
-- Framework Multiplataforma: Flutter (Apps IOS Android, Web, Desktop)
+### b. Emmagatzematge local i sincronitzacio
+-   dades guardem en local: token, nickname
+-   seguretat: HTTPS, autenticacio serveis per token
 
-### b. Enmagatzematge local i sincronització
+### c. Gestio d'accessibilitat
+-   nivells A, AA, AAA d'accessibilitat
 
-- Dades guardem en local: Token, nickname
-- Seguretat: HTTPS, autenticació serveis per Token
+## 3. Requisits generals 
 
-### c. Gestió d'accessibilitat
+### a. gestio d'usuari i autenticacio
+-   rols d'usuari: tutor i cuidador
+-   Seguretat password: md5m, sha256 o sha512
 
-- Nivells A, AA, AAA d'accessibilitat
+### b. requisits de infraestructura
+-    Xarxa: internet
+-   espai d'enmagatzematge a Servidor: 1Tb
+-   APIs a tercers: no en fem servir
 
-## 3. Requisits Generals Infraestructura
-
-### a. Gestió d'usuari i autenticació
-
-- Rols d'usuari: Tutor i cuidador
-- Seguretat password: md5m, sha256 o sha512
-
-### b.  Requisits d'Infraestructura
-
-- Xarxa: Internet
-- Espai d'enmagatzematge a Servidor: 1Tb
-- APIs a tercers:  No en fem servir
-
-## 4. Requisits del Procés de Desenvolupament
-
-- IDE's: VScode Python, Android Studio, PyCharm 
-- Control de versions: git, GitHub
-- Metodologia de desenvolupament: SCRUM
-- Testing i proves de qualitat(QA): Tests i proves unitàries
+## 4. Requisits del proces de desenvolupament
+-   IDE's: VScode Python, android studio, pycharm
+-   control de versions: git, github
+-   metodologia de desenvolupament: SCRUM
+-   testing i proves de qualitat(QA): Test i proves unitaries
