@@ -1,7 +1,7 @@
 # Requisits tecnics tapatapp
 
 ## arquitectura
-[client servidor](charts/mvc-generic.mermald)
+[client servidor](chart/mvc-generic.mermald)
 ## 1. Backend (servidor i gestio de dades)
 El backend sera el cor del sistema, encarregar de gestionar dades, usuaris, i la logica del sistema
 
@@ -49,3 +49,4 @@ Python
 -   control de versions: git, github
 -   metodologia de desenvolupament: SCRUM
 -   testing i proves de qualitat(QA): Test i proves unitaries
+
