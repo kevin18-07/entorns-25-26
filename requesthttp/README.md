@@ -7,7 +7,7 @@ Entorns de Desenvolupament 25-26
 
 ## Requisits Tècnics TapatApp
 
-[Requisits Tècnics TapatApp](requisitsFuncionalsTapatapp.md)
+[Requisits Tècnics TapatApp](requisitsTecnicsTapatapp.md)
 
 
 ## Configuració GitHub VsCode
@@ -22,7 +22,7 @@ Aquí configurem VSCode
 - Iteració 4: 9/03 - 8/04 (11h) - Vistes Wireframes i BBDD
 - Iteració 5: 13/04 - 29/04 (9h) - Pegat i Testing
 
-[Projecte a GiutHub](https://github.com/users/kevin18-07/projects/1/views/1?layout=board])
+[Projecte a GiutHub](https://github.com/users/kevin18-07/projects/1/views/1?layout=board)
 
 # Prototip 1
 
