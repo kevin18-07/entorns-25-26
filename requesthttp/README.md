@@ -29,7 +29,7 @@ Aquí configurem VSCode
 Connectar Client / Servidor.
 Consultar dades d'usuari per nom.
 
-[Diagrama d'arquitectura prototip 1](chart/diagrama.md)
+[Diagrama d'arquitectura prototip 1](../chart/diagrama.md)
 
 ## End-Points WebService
 
