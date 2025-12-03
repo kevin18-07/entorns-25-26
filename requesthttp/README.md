@@ -3,7 +3,7 @@ Entorns de Desenvolupament 25-26
 
 ## Requisits Funcionals TapatApp
 
-[Requisits Funcionals TapatApp](requisitsFuncTapatApp.md)
+[Requisits Funcionals TapatApp](requesthttp/requisitsFuncionalsTapatapp.md)
 
 ## Requisits Tècnics TapatApp
 
