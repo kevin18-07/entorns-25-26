@@ -3,11 +3,11 @@ Entorns de Desenvolupament 25-26
 
 ## Requisits Funcionals TapatApp
 
-[Requisits Funcionals TapatApp](entorns-25-26/requesthttp/requisitsFuncionalsTapatapp.md)
+[Requisits Funcionals TapatApp](requisitsFuncionalsTapatapp.md)
 
 ## Requisits Tècnics TapatApp
 
-[Requisits Tècnics TapatApp](entorns-25-26/requesthttp/requisitsFuncionalsTapatapp.md)
+[Requisits Tècnics TapatApp](requisitsFuncionalsTapatapp.md)
 
 
 ## Configuració GitHub VsCode
@@ -29,7 +29,7 @@ Aquí configurem VSCode
 Connectar Client / Servidor.
 Consultar dades d'usuari per nom.
 
-[Diagrama d'arquitectura prototip 1](entorns-25-26/chart/diagrama.md)
+[Diagrama d'arquitectura prototip 1](chart/diagrama.md)
 
 ## End-Points WebService
 
