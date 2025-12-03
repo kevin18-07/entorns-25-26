@@ -1,66 +1,42 @@
-# entorns-25-26
-Entors de Desenvolupamiento
+# Entorns de desenvolupament 25-26
+Entorns de Desenvolupament 25-26
 
-## Descripció
-L'ull amb cataracta congènita, un cop operat, ha de seguir un exhaustiu règim de rehabilitació per evitar l'ambliopia, el que coneixem comunament com "ull gandul", i aquí és on pretén ajudar TapatApp! 
-A part del tractament amb lents de contacte d’alta graduació i, posteriorment, lents intraoculars, el tractament més eficaç possible en aquesta patologia consisteix en l’aplicació d’un pegat (parche) a l’ull dominant, fent que l’ull operat es vegi forçat a desenvolupar-se el màxim possible. El repte en aquest sentit, és aconseguir que l’aplicació d’aquest tractament sigui el més equilibrada possible, per aconseguir el màxim desenvolupament d’aquest ull operat, sense penalitzar el de l’ull dominant, que també ha «d’aprendre a veure» en el que s’anomena l’etapa plàstica del cervell, que finalitza entre els 6-8 anys.
-Durant aquesta etapa, el tractament amb pegat varia en funció de l’edat de l’infant, començant per aplicar-lo la meitat del temps que estigui despert en els primers mesos de vida, i continuant amb un temps fix diari que estableix l’oftalmòleg. La dificultat real d’aquesta gestió rau en controlar el nombre de minuts que porta o li queda per portar al nen aquest pegat, ja que el seu son acostuma a ser variable i molt freqüent durant al dia. Moltes famílies manifesten la dificultat de controlar això per les freqüents migdiades que fan els petits, i per la incertesa de quan s’adormiran en el que queda de dia.
-L’objectiu de TapatApp consisteix en proporcionar a totes les famílies afectades per cataracta congènita, o qualsevol patologia que faci servir pegat ocular, una eina senzilla i gratuïta que els ajudi a portar aquest tractament de la forma més equilibrada possible i, com a conseqüència, obtenir el màxim desenvolupament d’agudesa visual.
-Esperant que el nostre projecte TapatApp, sigui del seu interès.
+## Requisits Funcionals TapatApp
 
-## objectius del projecte
--   control del temps del pegat de l'infant
--   control del tractament de la 1/2 de temps que el infant esta despert
--   control del tractament de temps que el infant dorm
--   restrejar quan hem de treure-la
--   compartir informació del tractament amb el servei mèdic
--   Acces restringit per tipus d'usuari al control del pegat.applicacio multiusuari
--   desenvolupar una app movil
+[Requisits Funcionals TapatApp](requisitsFuncTapatApp.md)
+
+## Requisits Tècnics TapatApp
+
+[Requisits Tècnics TapatApp](requisitsTecTapatApp.md)
 
 
+## Configuració GitHub VsCode
 
-## Actors de la App
--   Administrador
--   Servei medic (metges, oftalmolegs)
--   Tutors (mares, pares)
--   Cuidadors (mestres, avis)
--   Nen/a
--   "Public"
- Requisits Funcionals RF i Requisits No Funcionals
-RF: Requisits Funcionals
-RF1: Registre
-ROL: Tutor
+Aquí configurem VSCode
 
-Com a Usuari Tutor vull poder registrar-me a l'aplicació amb correu electrònic, nom i password, per poder accedir-hi.
+# Planificació Scrum
 
-RF2: Login
-ROL: Tutor
+- Iteració 1: 12/11 - 17/12 (15h) - Connexió Client Server
+- Iteració 2: 12/01 - 04/02 (12h) - End Points WebService, dades Tutor i Child 
+- Iteració 3: 9/02 - 04/03 (10h) - Digrames classes, Login i Seguretat
+- Iteració 4: 9/03 - 8/04 (11h) - Vistes Wireframes i BBDD
+- Iteració 5: 13/04 - 29/04 (9h) - Pegat i Testing
 
-Com a Usuari Tutor vull poder accedir de forma segura a l'aplicació amb correu electrònic i password
+[Projecte a GiutHub](https://github.com/users/amallad2/projects/9/views/1)
 
-RF3: Alta infant
-ROL: Tutor
+# Prototip 1
 
-Com a Usuari Tutor vull poder registrar un infant per poder portar el control del Pegat
+Connectar Client / Servidor.
+Consultar dades d'usuari per nom.
 
-RF4: Control Pegat infant
-ROL: Tutor
+[Diagrama d'arquitectura prototip 1](charts/diagramaprototip1.mermaid)
 
-Com a Usuari Tutor vull poder portar el control del Pegat. Quant de temps porta el pegat quan esta despert.
+## End-Points WebService
 
-RF5: Control Tractament
-ROL: Tutor
+Definició del En-point del WebService: 
 
-Com a Usuari Tuator vull poder configurar el tipus de tractament de l'infant. Per temps fix o la meitat del temps que està despert.
+URL Server desenvolupament: http://localhost:5000/
 
-RF6: Alta Cuidadors
-ROL: Tutor
-
-Com a Usuari Tutor vull poder afegir cuidadors per a que puguin portar també el control del pegat
-
-RF7: Cuidadors control pegat
-ROL: Cuidador
-
-Com a Usuari Cuidador vull poder portar el control del Pegat. Quant de temps porta el pegat quan esta despert.
-
-RNF
+| URL | Method | Paràmetres | Descripció | Output |
+|--------------|--------------|--------------|----------|----------|
+| /user       | Dato 2       | Dato 3       |Dato 4       |Dato 5   |
