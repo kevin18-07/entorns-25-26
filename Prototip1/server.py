@@ -11,12 +11,11 @@ class User:
     def __str__(self):
         return self.nom
 
-#us1=User(username="ama",nom="Rob Halford",password="12345", email="rob@gmail.com",rol="tutor")
-#print(us1)
 users = [
-    User(username="rob",nom="Rob Halford",password="12345", email="rob@gmail.com",rol="tutor"),
-    User(username="john",nom="John Cannigan",password="12345", email="john@gmail.com",rol="tutor"),
-    User(username="maria",nom="Maria Sams",password="12345", email="maria@gmail.com",rol="admin")
+    User(username="raul", nom="Raúl Fernández", password="12345", email="raul@gmail.com", rol="tutor"),
+    User(username="juan", nom="Juan García", password="12345", email="juan@gmail.com", rol="tutor"),
+    User(username="maria", nom="María López", password="12345", email="maria@gmail.com", rol="admin")
+
 ]
 
 class UserDao:
@@ -30,34 +29,9 @@ class UserDao:
                 user = u.__dict__
         return user
 
-# Test DAO
+# Test dao
 user_dao = UserDao()
 response=user_dao.getUserByUsername("pedro")
 print(response)
 response=user_dao.getUserByUsername("JJJJ")
 print(response)
-# End TEST
-
-'''
-app = Flask(__name__)
-
-@app.route('/user',methods=['GET'])
-def user():
-    resposta=""
-    # Parametres
-    username = request.args.get("username",default="")
-    # Si els paràmetres OK
-    if username != "":
-    # Anar al DAO Server i cercar User per username
-    # respondre amb dades Ususari si trobat
-        resposta="username=" + username
-    else:  #  Si els paràmetres NO ok 
-        # respondre error
-        resposta="username No Informat"
-    
-    return resposta
-
-
-if __name__ == '__main__':
-    app.run(debug=True)
-'''
