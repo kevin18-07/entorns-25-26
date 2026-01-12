@@ -28,10 +28,17 @@ class UserDao:
             if u.username == uname:
                 user = u.__dict__
         return user
-
+    
+    def addUser(self,u):
+        self.users.append(u)
+        return u
+    
+    def getAllUsers(self):
+        return[user.__dict__ for user in self]
+        #retunr self.users
 # Test dao
-user_dao = UserDao()
+'''user_dao = UserDao()
 response=user_dao.getUserByUsername("pedro")
 print(response)
 response=user_dao.getUserByUsername("JJJJ")
-print(response)
+print(response)'''
