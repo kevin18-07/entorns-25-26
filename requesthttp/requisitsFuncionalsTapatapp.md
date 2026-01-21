@@ -88,3 +88,19 @@ Llista numèrica
 </div>
 
 ### RNF: Requisits No Funcionals
+RNF1: Seguretat i privacitat
+Rol: Usuari i administrador
+Les dades dels infants i del tractament han d’estar encriptades, amb accés restringit a persones autoritzades, i sense possibilitat de ser compartides amb tercers sense consentiment.
+
+RNF2: Usabilitat i accessibilitat
+Rol: Usuari
+Interfície simple i intuïtiva, apta per persones amb dèficit visual o poc coneixement tecnològic, adaptable a diferents mides de pantalla i resolucions, i fàcil d’utilitzar per qualsevol cuidador.
+
+RNF3: Rendiment i eficiència
+Rol: Usuari i dispositiu
+L'aplicació ha de ser lleugera, consumir pocs recursos del dispositiu (CPU, memòria, bateria) i processar càlculs i notificacions de manera ràpida i en temps real.
+
+RNF4: Mantenibilitat i escalabilitat
+Rol: Desenvolupador
+Disseny modular que permet afegir noves funcionalitats, idiomes o integracions amb sistemes existents, amb facilitat per actualitzar i corregir errors sense afectar l’ús dels cuidadors.
+
