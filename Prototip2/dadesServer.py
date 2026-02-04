@@ -1,10 +1,6 @@
-## daouser atribut list user method listar,adduser, updateuser (id no modifica) , deleteuser, search by email, login, login token
-
-from flask import Flask, jsonify, request
+from flask import Flask, request, jsonify
+from datetime import datetime
 import uuid
-from dadesServer import *
-
-app = Flask(__name__)
 
 # --- Clases ---
 class User:
@@ -13,10 +9,19 @@ class User:
         self.username = username
         self.password = password
         self.email = email
-        self.idrole = idrole
+        self.idrole = idrole  # corregido
+
+    def __str__(self):
+        return f"{self.username}:{self.password}:{self.email}"
 
     def to_dict(self):
-        return {"id": self.id, "username": self.username, "email": self.email, "idrole": self.idrole}
+        return {
+            "id": self.id,
+            "username": self.username,
+            "password": self.password,
+            "email": self.email,
+            "idrole": self.idrole
+        }
 
 class Child:
     def __init__(self, id, child_name, sleep_average, treatment_id, time):
@@ -27,7 +32,13 @@ class Child:
         self.time = time
 
     def to_dict(self):
-        return self.__dict__
+        return {
+            "id": self.id,
+            "child_name": self.child_name,
+            "sleep_average": self.sleep_average,
+            "treatment_id": self.treatment_id,
+            "time": self.time
+        }
 
 class Tap:
     def __init__(self, id, child_id, status_id, user_id, init, end=None):
@@ -39,11 +50,42 @@ class Tap:
         self.end = end
 
     def to_dict(self):
-        return self.__dict__
+        return {
+            "id": self.id,
+            "child_id": self.child_id,
+            "status_id": self.status_id,
+            "user_id": self.user_id,
+            "init": self.init,
+            "end": self.end
+        }
 
-# --- Datos de ejemplo ---
+class Status:
+    def __init__(self, id, name):
+        self.id = id
+        self.name = name
+
+    def to_dict(self):
+        return {"id": self.id, "name": self.name}
+
+class Role:
+    def __init__(self, id, type_rol):
+        self.id = id
+        self.type_rol = type_rol
+
+    def to_dict(self):
+        return {"id": self.id, "type_rol": self.type_rol}
+
+class Treatment:
+    def __init__(self, id, name):
+        self.id = id
+        self.name = name
+
+    def to_dict(self):
+        return {"id": self.id, "name": self.name}
+
+# --- Datos ---
 users = [
-    User(id=1, username="mare", password="12345", email="prova@gmail.com", idrole=1),
+    User(id=1, username="mare", password="12345", email="pepe@gmail.com", idrole=1),
     User(id=2, username="pare", password="123", email="prova2@gmail.com", idrole=1)
 ]
 
@@ -65,7 +107,25 @@ relation_user_child = [
     {"user_id": 2, "child_id": 2, "rol_id": 2}
 ]
 
-# --- DAOUser ---
+roles = [
+    Role(id=1, type_rol='Admin'),
+    Role(id=2, type_rol='Tutor Mare Pare'),
+    Role(id=3, type_rol='Cuidador'),
+    Role(id=4, type_rol='Seguiment')
+]
+
+statuses = [
+    Status(id=1, name="sleep"),
+    Status(id=2, name="awake yes_eyepatch"),
+    Status(id=3, name="awake no_eyepatch")
+]
+
+treatments = [
+    Treatment(id=1, name='Hour'),
+    Treatment(id=2, name='percentage')
+]
+
+# --- DAO ---
 class DAOUser:
     def __init__(self, users, children, taps, relation_user_child):
         self.users = users
@@ -74,7 +134,7 @@ class DAOUser:
         self.relation_user_child = relation_user_child
 
     def listar(self):
-        return [u for u in self.users]
+        return [u.to_dict() for u in self.users]
 
     def add_user(self, data):
         if any(u.email == data["email"] for u in self.users):
@@ -127,16 +187,18 @@ class DAOUser:
     def get_taps_by_user(self, user_id):
         return [t.to_dict() for t in self.taps if t.user_id == user_id]
 
-# --- Instanciar DAO ---
+# --- Instancia DAO ---
 dao = DAOUser(users, children, taps, relation_user_child)
 
-# --- Endpoints ---
+# --- Flask ---
+app = Flask(__name__)
+
 @app.route("/users", methods=["GET"])
 def listar_users():
     return jsonify(dao.listar())
 
 @app.route("/users", methods=["POST"])
-def add_user():
+def add_user_route():
     data = request.json
     result = dao.add_user(data)
     if result:
@@ -144,7 +206,7 @@ def add_user():
     return jsonify({"error": "Email ya existe"}), 400
 
 @app.route("/users/<int:id>", methods=["PUT"])
-def update_user(id):
+def update_user_route(id):
     data = request.json
     result = dao.update_user(id, data)
     if result:
@@ -152,7 +214,7 @@ def update_user(id):
     return jsonify({"error": "Usuario no encontrado"}), 404
 
 @app.route("/users/<int:id>", methods=["DELETE"])
-def delete_user(id):
+def delete_user_route(id):
     if dao.delete_user(id):
         return jsonify({"status": "Eliminado"})
     return jsonify({"error": "Usuario no encontrado"}), 404
@@ -165,7 +227,7 @@ def search_user_email(email):
     return jsonify({"error": "Usuario no encontrado"}), 404
 
 @app.route("/login", methods=["POST"])
-def login():
+def login_route():
     data = request.json
     result = dao.login(data["username"], data["password"])
     if result:
@@ -173,7 +235,7 @@ def login():
     return jsonify({"error": "Credenciales incorrectas"}), 401
 
 @app.route("/login/token", methods=["POST"])
-def login_token():
+def login_token_route():
     data = request.json
     result = dao.login_token(data["username"], data["password"])
     if result:
@@ -191,16 +253,3 @@ def get_taps(id):
 # --- Ejecutar server ---
 if __name__ == "__main__":
     app.run(debug=True)
-
-
-##Endpoint	Método	Descripción
-##/users	GET	Lista todos los usuarios
-##/users	POST	Crea un usuario nuevo (JSON en body)
-##/users/<id>	PUT	Actualiza usuario con ID
-##/users/<id>	DELETE	Borra usuario con ID
-
-##/users/email/<email>	GET	Busca usuario por email
-##/login	POST	Login con username y password (JSON en body)
-##/login/token	POST	Login y devuelve token
-##/users/<id>/children	GET	Devuelve los children de un usuario
-##/users/<id>/taps	GET	Devuelve los taps de un usuario
