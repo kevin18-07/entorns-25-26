@@ -43,7 +43,7 @@ URL Server desenvolupament: http://localhost:5000/
 
 # Prototip 2
 
-###Diagrama de classses
+### Diagrama de classses
 Fem diagrama de classes del **Server**
 WebService, Dao's , ADT(Abstract data Class) User, Child, Tap ... 
 **Client**
