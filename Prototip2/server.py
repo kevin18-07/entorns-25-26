@@ -1,206 +1,53 @@
-## daouser atribut list user method listar,adduser, updateuser (id no modifica) , deleteuser, search by email, login, login token
+from flask import Flask, request, jsonify
+from DaoServer import UserDAO
+from dataclasses import dataclass, asdict
 
-from flask import Flask, jsonify, request
-import uuid
-from dadesServer import *
+@dataclass
+class ApiResponse():
+    msg: str
+    coderesponse: str
+    data: list
+
+# Instantiate DAO
+userDao=UserDAO()
 
 app = Flask(__name__)
 
-# --- Clases ---
-class User:
-    def __init__(self, id, username, password, email, idrole):
-        self.id = id
-        self.username = username
-        self.password = password
-        self.email = email
-        self.idrole = idrole
+@app.route('/getusers', methods=['GET'])
+def getusers():
+    response = ApiResponse(
+        msg="All Users",
+        coderesponse="1",
+        data=userDao.getAllUsers()
+    )
+    return jsonify(asdict(response)),200
 
-    def to_dict(self):
-        return {"id": self.id, "username": self.username, "email": self.email, "idrole": self.idrole}
 
-class Child:
-    def __init__(self, id, child_name, sleep_average, treatment_id, time):
-        self.id = id
-        self.child_name = child_name
-        self.sleep_average = sleep_average
-        self.treatment_id = treatment_id
-        self.time = time
-
-    def to_dict(self):
-        return self.__dict__
-
-class Tap:
-    def __init__(self, id, child_id, status_id, user_id, init, end=None):
-        self.id = id
-        self.child_id = child_id
-        self.status_id = status_id
-        self.user_id = user_id
-        self.init = init
-        self.end = end
-
-    def to_dict(self):
-        return self.__dict__
-
-# --- Datos de ejemplo ---
-users = [
-    User(id=1, username="mare", password="12345", email="prova@gmail.com", idrole=1),
-    User(id=2, username="pare", password="123", email="prova2@gmail.com", idrole=1)
-]
-
-children = [
-    Child(id=1, child_name="Carol Child", sleep_average=8, treatment_id=1, time=6),
-    Child(id=2, child_name="Jaco Child", sleep_average=10, treatment_id=2, time=6)
-]
-
-taps = [
-    Tap(id=1, child_id=1, status_id=1, user_id=1, init="2024-12-18T19:42:43"),
-    Tap(id=2, child_id=2, status_id=2, user_id=2, init="2024-12-18T21:42:43")
-]
-
-relation_user_child = [
-    {"user_id": 1, "child_id": 1, "rol_id": 1},
-    {"user_id": 1, "child_id": 2, "rol_id": 1},
-    {"user_id": 1, "child_id": 1, "rol_id": 2},
-    {"user_id": 2, "child_id": 2, "rol_id": 1},
-    {"user_id": 2, "child_id": 2, "rol_id": 2}
-]
-
-# --- DAOUser ---
-class DAOUser:
-    def __init__(self, users, children, taps, relation_user_child):
-        self.users = users
-        self.children = children
-        self.taps = taps
-        self.relation_user_child = relation_user_child
-
-    def listar(self):
-        return [u for u in self.users]
-
-    def add_user(self, data):
-        if any(u.email == data["email"] for u in self.users):
-            return None
-        max_id = max([u.id for u in self.users], default=0)
-        user = User(id=max_id+1, **data)
-        self.users.append(user)
-        return user.to_dict()
-
-    def update_user(self, id, data):
-        for u in self.users:
-            if u.id == id:
-                u.username = data.get("username", u.username)
-                u.password = data.get("password", u.password)
-                u.email = data.get("email", u.email)
-                u.idrole = data.get("idrole", u.idrole)
-                return u.to_dict()
-        return None
-
-    def delete_user(self, id):
-        for u in self.users:
-            if u.id == id:
-                self.users.remove(u)
-                return True
-        return False
-
-    def search_by_email(self, email):
-        for u in self.users:
-            if u.email == email:
-                return u.to_dict()
-        return None
-
-    def login(self, username, password):
-        for u in self.users:
-            if u.username == username and u.password == password:
-                return u.to_dict()
-        return None
-
-    def login_token(self, username, password):
-        user = self.login(username, password)
-        if user:
-            token = str(uuid.uuid4())
-            return {"user": user, "token": token, "issued_at": datetime.now().isoformat()}
-        return None
-
-    def get_children_by_user(self, user_id):
-        child_ids = [r["child_id"] for r in self.relation_user_child if r["user_id"] == user_id]
-        return [c.to_dict() for c in self.children if c.id in child_ids]
-
-    def get_taps_by_user(self, user_id):
-        return [t.to_dict() for t in self.taps if t.user_id == user_id]
-
-# --- Instanciar DAO ---
-dao = DAOUser(users, children, taps, relation_user_child)
-
-# --- Endpoints ---
-@app.route("/users", methods=["GET"])
-def listar_users():
-    return jsonify(dao.listar())
-
-@app.route("/users", methods=["POST"])
-def add_user():
-    data = request.json
-    result = dao.add_user(data)
-    if result:
-        return jsonify(result), 201
-    return jsonify({"error": "Email ya existe"}), 400
-
-@app.route("/users/<int:id>", methods=["PUT"])
-def update_user(id):
-    data = request.json
-    result = dao.update_user(id, data)
-    if result:
-        return jsonify(result)
-    return jsonify({"error": "Usuario no encontrado"}), 404
-
-@app.route("/users/<int:id>", methods=["DELETE"])
-def delete_user(id):
-    if dao.delete_user(id):
-        return jsonify({"status": "Eliminado"})
-    return jsonify({"error": "Usuario no encontrado"}), 404
-
-@app.route("/users/email/<email>", methods=["GET"])
-def search_user_email(email):
-    result = dao.search_by_email(email)
-    if result:
-        return jsonify(result)
-    return jsonify({"error": "Usuario no encontrado"}), 404
-
-@app.route("/login", methods=["POST"])
+@app.route('/login', methods=['POST'])
 def login():
-    data = request.json
-    result = dao.login(data["username"], data["password"])
-    if result:
-        return jsonify(result)
-    return jsonify({"error": "Credenciales incorrectas"}), 401
+    # Existing username/password login
+    data = request.get_json()
+    identifier = data.get('username')  # username or email
+    password = data.get('password')
+    user = userDao.login(identifier, password)
+    response = ApiResponse(
+            msg="login",
+            coderesponse="-1",
+            data=user
+        )
+    if user:
+        response = ApiResponse(
+            msg="Authenticated",
+            coderesponse="1",
+            data=user
+        )
+    else:
+        response = ApiResponse(
+            msg="Not authenticated",
+            coderesponse="0",
+            data=user
+        )
+    return jsonify(asdict(response)),200
 
-@app.route("/login/token", methods=["POST"])
-def login_token():
-    data = request.json
-    result = dao.login_token(data["username"], data["password"])
-    if result:
-        return jsonify(result)
-    return jsonify({"error": "Credenciales incorrectas"}), 401
-
-@app.route("/users/<int:id>/children", methods=["GET"])
-def get_children(id):
-    return jsonify(dao.get_children_by_user(id))
-
-@app.route("/users/<int:id>/taps", methods=["GET"])
-def get_taps(id):
-    return jsonify(dao.get_taps_by_user(id))
-
-# --- Ejecutar server ---
-if __name__ == "__main__":
-    app.run(debug=True)
-
-
-##Endpoint	Método	Descripción
-##/users	GET	Lista todos los usuarios
-##/users	POST	Crea un usuario nuevo (JSON en body)
-##/users/<id>	PUT	Actualiza usuario con ID
-##/users/<id>	DELETE	Borra usuario con ID
-
-##/users/email/<email>	GET	Busca usuario por email
-##/login	POST	Login con username y password (JSON en body)
-##/login/token	POST	Login y devuelve token
-##/users/<id>/children	GET	Devuelve los children de un usuario
-##/users/<id>/taps	GET	Devuelve los taps de un usuario
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000, debug=True)
