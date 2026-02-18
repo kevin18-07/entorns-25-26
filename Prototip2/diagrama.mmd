@@ -1,5 +1,12 @@
 classDiagram
 
+class WebService {
+  - daouser : UserDAO
+  - daochild : ChildDAO
+  - daotap : TapDAO
+  + login(user, password)
+}
+
 class User {
   - id : int
   - username : string
@@ -47,5 +54,18 @@ class TapDAO {
   + addTap(Tap t)
   + updateTap(Tap t)
   + deleteTap(int id)
-  + getTapsByChild(int child_id) 
+  + getTapsByChild(int child_id)
 }
+
+%% Relaciones de herencia
+WebService <|-- UserDAO
+WebService <|-- ChildDAO
+WebService <|-- TapDAO
+
+UserDAO <|-- User
+
+ChildDAO <|-- User
+ChildDAO <|-- Child
+ChildDAO <|-- Tap
+
+TapDAO <|-- Tap
