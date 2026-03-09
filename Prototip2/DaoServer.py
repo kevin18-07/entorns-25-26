@@ -1,13 +1,15 @@
-from dadesServer import *
+from Prototip1.ClientD import User
+from Prototip2 import *
 from dataclasses import dataclass, asdict
 from flask import jsonify
+from Prototip2 import user
 
 
 
 
 class UserDAO:
     def __init__(self):
-        self.users = users
+        self.users = user
 
     def getAllUsers(self):
         return [user.__dict__ for user in self.users]
@@ -28,17 +30,20 @@ class UserDAO:
         return [relation['rol_id'] for relation in relation_user_child if relation['user_id'] == user_id]
 
 
+class ChildDAO:
+    def __init__(self):
+        self.childs = children
+        self.relation_user_child = relation_user_child
+    
+    def getChilds(self, user):
+        child_ids =  {r['child_id'] for r in self.relation_user_child if r['user_id'] == user.id}
+        return [c for c in self.childs if c.id in child_ids]
 
+cDao = ChildDAO()
+u=User(id=1, username="", password="", email="", idrole=1 ,token="")
+listChilds=cDao.getChilds(u)
+print(listChilds)
 
-#####################################################
-#  Test / Proves Codi per veure funcionament 
-#  (comentar quan s'ha testejat)
-#####################################################
-
-## print All Users from list dadesServer: 
-#print(" ".join([str(x) for x in users]))
-## print All Users from DAO
-''' 
 userDao = UserDAO()
 listAllUsers=userDao.getAllUsers()
 print(type(listAllUsers))
@@ -58,9 +63,8 @@ response = ApiResponse(
 )
 print(response)
 print(asdict(response))
-Vol dir que estàs cridant jsonify() fora d’una ruta Flask o fora del context de l’aplicació.
-jsonify() només pot usar-se quan Flask té un app context actiu, és a dir:
-dins d’una funció decorada amb @app.route
-o dins d’un with app.app_context():
-'''
-#print(jsonify(asdict(response)))
+
+class TapDao:
+
+    def getTapsByChild(self, child_id):
+        return [t.__dict__ for t in taps if t.child_id == child_id]

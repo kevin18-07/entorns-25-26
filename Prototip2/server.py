@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify
-from DaoServer import UserDAO
 from dataclasses import dataclass, asdict
+from Prototip2.DaoServer import UserDAO
 
 @dataclass
 class ApiResponse():
