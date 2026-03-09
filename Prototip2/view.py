@@ -26,3 +26,14 @@ class ViewConsole:
         print("Input name or email and password")
         username = input("Username or email")
         password = input("Password")
+
+    def viewUser(self,user):
+        print("View User Authenticated")
+        print(user)
+
+    def viewUserNotAutenticated(self):
+        print("View User")
+        print("User Not Autenticated")
+viewConsole=ViewConsole()
+
+viewConsole.viewGeneral()

@@ -1,5 +1,5 @@
 import requests
-from Prototip2 import user
+from Prototip2 import User
 from Prototip2 import View
 from client import *
 from flask import jsonify
