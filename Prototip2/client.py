@@ -1,7 +1,8 @@
+# client.py - Cliente para prototipo
 import requests
 
-class User:
-    def __init__(self, id, username, password ,email, idrole, token):
+class UserClient:
+    def __init__(self, id, username, password, email, idrole, token):
         self.id = id
         self.username = username
         self.password = password
@@ -13,32 +14,30 @@ class User:
         return f"{self.username} ({self.email}) - Role: {self.idrole}"
 
 
-class daoUserClient:
+class DaoUserClient:
+    base_URL = "http://127.0.0.1:5000"
 
     def login(self, username, password):
-
-        response = requests.post(
-            'http://127.0.0.1:5000/login',
-            json={
-                "username": username,
-                "password": password
-            }
-        )
+        try:
+            response = requests.post(
+                f"{self.base_URL}/login",
+                json={"username": username, "password": password}
+            )
+        except requests.exceptions.RequestException:
+            return None
 
         if response.status_code == 200:
-
-            data = response.json()
-
-            if data["coderesponse"] == "1":
-                return User(
-                    data["id"],
-                    data["username"],
-                    data["password"],
-                    data["email"],
-                    data["idrole"],
-                    data["token"]
+            resp_json = response.json()
+            if resp_json["coderesponse"] == "1":
+                user_data = resp_json["data"]
+                return UserClient(
+                    user_data["id"],
+                    user_data["username"],
+                    "",  # no almacenar password en cliente
+                    user_data["email"],
+                    user_data["idrole"],
+                    user_data["token"]
                 )
-
         return None
 
 
