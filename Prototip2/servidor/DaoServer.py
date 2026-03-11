@@ -1,4 +1,4 @@
-# DaoServer.py - DAOs para servidor
+# servidor/DaoServer.py
 from dadesServer import User, users, children, taps, relation_user_child
 
 class UserDAO:
@@ -11,7 +11,7 @@ class UserDAO:
     def get_user_by_username(self, username):
         for user in self.users:
             if user.username == username:
-                return user.__dict__
+                return user
         return None
     
     def login(self, identifier, password):
@@ -21,7 +21,7 @@ class UserDAO:
         return None
     
     def get_user_roles(self, user_id):
-        return [relation['rol_id'] for relation in relation_user_child if relation['user_id'] == user_id]
+        return list({relation['rol_id'] for relation in relation_user_child if relation['user_id'] == user_id})
 
 
 class ChildDAO:
