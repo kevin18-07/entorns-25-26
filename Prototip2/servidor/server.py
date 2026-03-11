@@ -55,7 +55,7 @@ def login():
     return jsonify(asdict(response)), 200
 
 
-@app.route('/children', methods=['POST'])
+@app.route('/child', methods=['POST'])
 def get_children():
     data = request.get_json()
     username = data.get("username")
