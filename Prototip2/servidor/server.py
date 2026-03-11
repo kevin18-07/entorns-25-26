@@ -1,70 +1,86 @@
-# servidor/server.py
 from flask import Flask, request, jsonify
-from DaoServer import UserDAO, ChildDAO
-from dadesServer import users
+from DaoServer import UserDAO, ChildDAO, TapDAO
+from dataclasses import dataclass, asdict
+
+@dataclass
+class ApiResponse():
+    msg: str
+    coderesponse: str
+    data: list
+
+userDao = UserDAO()
+childDao = ChildDAO()
+tapDao = TapDAO()
 
 app = Flask(__name__)
 
-user_dao = UserDAO()
-child_dao = ChildDAO()
+@app.route('/getusers', methods=['GET'])
+def getusers():
+    response = ApiResponse(
+        msg="All Users",
+        coderesponse="1",
+        data=userDao.getAllUsers()
+    )
+    return jsonify(asdict(response)), 200
+
 
 @app.route('/login', methods=['POST'])
 def login():
     data = request.get_json()
+
     identifier = data.get('username')
     password = data.get('password')
-    user = user_dao.login(identifier, password)
-    if user:
-        return jsonify({
-            "coderesponse": "1",
-            "data": user.__dict__,
-            "msg": "Authenticated"
-        }), 200
-    else:
-        return jsonify({
-            "coderesponse": "0",
-            "msg": "No validat"
-        }), 400
 
-@app.route('/login/token', methods=['POST'])
-def login_token():
-    token = request.headers.get("Authorization")
-    user = next((u for u in users if u.token == token), None)
-    if user:
-        return jsonify({
-            "id": user.id,
-            "username": user.username,
-            "email": user.email,
-            "token": user.token,
-            "idrole": user.idrole,
-            "msg": "Usuari Ok",
-            "coderesponse": "1"
-        }), 200
-    else:
-        return jsonify({
-            "coderesponse": "0",
-            "msg": "No validat"
-        }), 400
+    user = userDao.login(identifier, password)
 
-@app.route('/child', methods=['POST'])
+    response = ApiResponse(
+        msg="login",
+        coderesponse="-1",
+        data=user
+    )
+
+    if user:
+        response = ApiResponse(
+            msg="Authenticated",
+            coderesponse="1",
+            data=user.__dict__
+        )
+    else:
+        response = ApiResponse(
+            msg="Not authenticated",
+            coderesponse="0",
+            data=""
+        )
+
+    return jsonify(asdict(response)), 200
+
+
+@app.route('/children', methods=['POST'])
 def get_children():
-    token = request.headers.get("Authorization")
-    if not token:
-        return jsonify({"msg": "Token missing", "coderesponse": "0"}), 401
+    data = request.get_json()
+    username = data.get("username")
 
-    user = next((u for u in users if u.token == token), None)
+    user = userDao.get_user_by_username(username)
+
     if not user:
-        return jsonify({"msg": "No validat", "coderesponse": "0"}), 400
+        response = ApiResponse(
+            msg="User not found",
+            coderesponse="0",
+            data=[]
+        )
+        return jsonify(asdict(response)), 200
 
-    children_list = child_dao.get_children(user)
-    children_data = [c.__dict__ for c in children_list]
+    children = childDao.get_children(user)
 
-    msg_code = "1" if len(children_data) == 1 else str(len(children_data))
-    return jsonify({
-        "coderesponse": "1",
-        "msg": msg_code,
-        "data": children_data
-    }), 200
+    response = ApiResponse(
+        msg="Children list",
+        coderesponse="1",
+        data=[c.__dict__ for c in children]
+    )
 
-if __name__ == "__main__":
+    return jsonify(asdict(response)), 200
+
+
+
+if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
