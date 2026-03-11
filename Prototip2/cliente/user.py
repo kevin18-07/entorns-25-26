@@ -5,11 +5,11 @@ class User:
         self.username = username
         self.password = password
         self.email = email
-        self.idrole = id
-        self.token = token
+        self.idrole = idrole
+        self.token = token  # No lo usamos, pero lo dejamos por compatibilidad
 
     def __str__(self):
-        return f"User(ID={self.id}, name={self.username}, email={self.email}, password={self.password}, token={self.token}, IDROLE={self.idrole})"
+        return f"User(ID={self.id}, name={self.username}, email={self.email}, IDROLE={self.idrole})"
 
     def to_dict(self):
         return {
@@ -20,3 +20,15 @@ class User:
             "idrole": self.idrole,
             "token": self.token
         }
+
+# Clase Child para el cliente
+class Child:
+    def __init__(self, id, child_name, sleep_average, treatment_id, time):
+        self.id = id
+        self.child_name = child_name
+        self.sleep_average = sleep_average
+        self.treatment_id = treatment_id
+        self.time = time
+
+    def __str__(self):
+        return f"Child(ID={self.id}, Name={self.child_name}, Sleep Avg={self.sleep_average}, Treatment={self.treatment_id})"
