@@ -8,7 +8,8 @@ def list_users():
         host="localhost",
         user="root",
         password="root",
-        database="tapatap"
+        database="tapatap",
+        auth_plugin="mysql_native_password"
     )
     cursor = connection.cursor(dictionary=True)
 
