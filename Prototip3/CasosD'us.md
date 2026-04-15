@@ -63,7 +63,7 @@ El sistema valida el username como identificador y continúa el flujo normal.
 
 ---
 
-## ⏱Rendimiento
+## Rendimiento
 El sistema debe completar el proceso de login en un máximo de **2 segundos**.
 
 ---
