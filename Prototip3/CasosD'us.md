@@ -1,4 +1,4 @@
-# 📌 Descripción de Caso de Uso
+# Descripción de Caso de Uso
 
 ## [UC1]
 ## Login de usuario
