@@ -26,4 +26,4 @@ UC6 --> UC7
 
 UC4 --> UC8
 
-UC9["Filtrar datos (según rol)" -- Uses] -.-> UC4
+UC9["Filtrar por rol (Tutor/Cuidador)" -- Uses] -.-> UC4
