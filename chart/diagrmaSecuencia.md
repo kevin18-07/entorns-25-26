@@ -1,3 +1,4 @@
+```mermaid
 sequenceDiagram
     box rgba(173, 216, 230, 0.5) Entorno Cliente
         participant Client
