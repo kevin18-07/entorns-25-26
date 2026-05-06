@@ -11,6 +11,8 @@ class ViewConsole:
         print("2: Login Token")
         print("3: Child")
         print("4: Quit")
+        print("4: Get Taps")
+        print("5: Quit")
         while(True):
             option=input("Enter Option: ")
             if(option.isdigit):
@@ -37,7 +39,8 @@ class ViewConsole:
                     print("Childs")
                     #self.viewLogin()
                 case 4:
-                    # Quit
+                    self.viewGetTaps()
+                case 5:
                     print("Adeu, Gràcies per utilitzar l'aplicació")
 
     def viewLoginToken(self, token):
@@ -69,6 +72,24 @@ class ViewConsole:
     def viewUserNotAutenticated(self):
         print("View User")
         print("User NOT Authenticated")
+    
+    def viewGetTaps(self):
+        print("View GET TAPS")
+
+        if not self.token:
+            print("Error: has de fer login primer")
+            return
+
+        child_id = input("Child ID: ")
+
+        result = self.daoClient.getTaps(self.token, child_id)
+
+        if result:
+            print("TAPS:")
+            for tap in result:
+                print(tap)
+        else:
+            print("No taps found or error")
 
 
 viewConsole=ViewConsole()

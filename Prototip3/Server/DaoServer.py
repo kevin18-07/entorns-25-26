@@ -17,13 +17,15 @@ class UserDAO:
         )
         return connection
      
-    def getUserByToken(self,token):
-        # connexió a BBDD
-        con=self.connectBBDD()
+    def getUserByToken(self, token):
+        con = self.connectBBDD()
         cursor = con.cursor(dictionary=True)
-        query = "SELECT * FROM User WHERE token = '" + token + "'"
-        cursor.execute(query)
+
+        query = "SELECT * FROM User WHERE token = %s"
+        cursor.execute(query, (token,))
+
         user = cursor.fetchone()
+
         cursor.close()
         con.close()
         return user
@@ -85,7 +87,7 @@ class ChildDAO:
             host="localhost",
             user="root",
             password="root",
-            database="tapatapp"
+            database="tapatap"
         )
         return connection
 
@@ -99,6 +101,29 @@ class ChildDAO:
         cursor.close()
         con.close()
         return  results
+    
+    def getTapsByChild(self, child_id):
+        con = self.connectBBDD()
+        cursor = con.cursor(dictionary=True)
+
+        query = """
+            SELECT * FROM Tap
+            WHERE child_id = %s
+            ORDER BY init ASC
+        """
+
+        cursor.execute(query, (child_id,))
+        result = cursor.fetchall()
+
+        cursor.close()
+        con.close()
+        return result
+    
+# cdao = ChildDAO()
+
+# res = cdao.getTapsByChild(1)
+# print(res)
+
    
 '''
 cdao=ChildDAO()

@@ -69,6 +69,37 @@ def child():
         )
     return jsonify(asdict(response)),200
 
+@app.route('/taps', methods=['POST'])
+def taps():
+
+    token = request.headers.get("api-token")
+
+    print("TOKEN RECIBIDO:", repr(token))  # DEBUG
+
+    user = userDao.getUserByToken(token)
+
+    print("USER ENCONTRADO:", user)  # DEBUG
+
+    if not user:
+        return jsonify({
+            "msg": "Access not granted",
+            "coderesponse": "0",
+            "data": ""
+        }), 400
+
+    data = request.get_json()
+    child_id = data.get("child_id")
+
+    taps = childDao.getTapsByChild(child_id)
+
+    response = ApiResponse(
+        msg="GetTaps",
+        coderesponse="1",
+        data=taps
+    )
+
+    return jsonify(asdict(response)), 200
+
 
 
 
