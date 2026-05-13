@@ -1,0 +1,72 @@
+flowchart TD
+
+%% =====================
+%% USUARIO
+%% =====================
+U[👤 Usuario<br>Jugador / Admin]
+
+%% =====================
+%% FRONTEND
+%% =====================
+FE[💻 Frontend<br>React / Angular / HTML]
+
+FE1[Login / Register]
+FE2[Catálogo de juegos]
+FE3[Biblioteca del usuario]
+FE4[Panel Admin]
+
+FE --> FE1
+FE --> FE2
+FE --> FE3
+FE --> FE4
+
+%% =====================
+%% BACKEND
+%% =====================
+BE[⚙️ Backend API REST<br>Node.js / Spring Boot]
+
+C1[Auth Controller]
+C2[Game Controller]
+C3[Library Controller]
+C4[Purchase Controller]
+
+S1[Auth Service]
+S2[Game Service]
+S3[Library Service]
+S4[Purchase Service]
+
+BE --> C1
+BE --> C2
+BE --> C3
+BE --> C4
+
+C1 --> S1
+C2 --> S2
+C3 --> S3
+C4 --> S4
+
+%% =====================
+%% DATABASE
+%% =====================
+DB[(🗄️ MySQL)]
+
+T1[Users]
+T2[Games]
+T3[Library]
+T4[Categories]
+T5[Orders]
+
+DB --> T1
+DB --> T2
+DB --> T3
+DB --> T4
+DB --> T5
+
+%% =====================
+%% CONEXIONES PRINCIPALES
+%% =====================
+U --> FE
+FE -->|HTTP REST API| BE
+BE -->|JDBC / ORM| DB
+BE --> FE
+FE --> U
