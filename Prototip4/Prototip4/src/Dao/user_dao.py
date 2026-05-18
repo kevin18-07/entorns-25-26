@@ -1,4 +1,4 @@
-from db import get_connection
+from Prototip4.Prototip4.src.db import get_connection
 
 class UserDAO:
 

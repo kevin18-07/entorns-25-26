@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Games App</title>
+  <style>
+    body {
+      font-family: Arial;
+      max-width: 600px;
+      margin: 40px auto;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    input {
+      padding: 8px;
+      width: 70%;
+    }
+
+    button {
+      padding: 8px 12px;
+      margin: 5px;
+      cursor: pointer;
+    }
+
+    li {
+      display: flex;
+      justify-content: space-between;
+      margin: 8px 0;
+      padding: 8px;
+      background: #f3f3f3;
+      border-radius: 6px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>🎮 Games</h1>
+
+  <div>
+    <input id="name" placeholder="Nombre del juego">
+    <button onclick="createGame()">Crear</button>
+  </div>
+
+  <hr>
+
+  <button onclick="loadGames()">🔄 Cargar juegos</button>
+
+  <ul id="gamesList"></ul>
+
+  <script src="app.js"></script>
+
+</body>
+</html>
