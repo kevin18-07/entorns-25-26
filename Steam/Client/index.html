@@ -1,57 +1,66 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Games App</title>
-  <style>
-    body {
-      font-family: Arial;
-      max-width: 600px;
-      margin: 40px auto;
-    }
-
-    h1 {
-      text-align: center;
-    }
-
-    input {
-      padding: 8px;
-      width: 70%;
-    }
-
-    button {
-      padding: 8px 12px;
-      margin: 5px;
-      cursor: pointer;
-    }
-
-    li {
-      display: flex;
-      justify-content: space-between;
-      margin: 8px 0;
-      padding: 8px;
-      background: #f3f3f3;
-      border-radius: 6px;
-    }
-  </style>
+<meta charset="UTF-8">
+<title>Steam Clone</title>
+<link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
 
-  <h1>🎮 Games</h1>
+<!-- ===================== -->
+<!-- LOGIN -->
+<!-- ===================== -->
+<div id="authScreen" class="auth">
 
-  <div>
-    <input id="name" placeholder="Nombre del juego">
-    <button onclick="createGame()">Crear</button>
+  <div class="authBox">
+    <h1>🎮 Steam Clone</h1>
+
+    <input id="user" placeholder="Usuario">
+    <input id="pass" type="password" placeholder="Contraseña">
+
+    <button onclick="login()">Login</button>
+    <button onclick="signup()">Sign Up</button>
+
+    <p id="authMsg"></p>
   </div>
 
-  <hr>
+</div>
 
-  <button onclick="loadGames()">🔄 Cargar juegos</button>
+<!-- ===================== -->
+<!-- APP -->
+<!-- ===================== -->
+<div id="launcher" class="app hidden">
 
-  <ul id="gamesList"></ul>
+  <aside class="sidebar">
+    <h2>STEAM 2D</h2>
 
-  <script src="app.js"></script>
+    <input id="search" placeholder="Buscar juegos...">
 
+    <h4>Géneros</h4>
+    <p class="genre active" data-genre="all">Todos</p>
+    <p class="genre" data-genre="arcade">Arcade</p>
+    <p class="genre" data-genre="clasicos">Clásicos</p>
+  </aside>
+
+  <main>
+    <h1>Biblioteca</h1>
+    <div id="games" class="grid"></div>
+  </main>
+
+</div>
+
+<!-- ===================== -->
+<!-- GAME SCREEN -->
+<!-- ===================== -->
+<div id="gameScreen">
+  <div id="ui">
+    <button onclick="back()">⬅ Volver</button>
+    <h2 id="title"></h2>
+  </div>
+  <canvas id="game"></canvas>
+</div>
+
+<script src="app.js"></script>
 </body>
 </html>

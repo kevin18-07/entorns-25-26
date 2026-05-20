@@ -1,0 +1,130 @@
+body {
+  margin: 0;
+  font-family: Arial;
+  background: #0b0f19;
+  color: white;
+  overflow: hidden;
+}
+
+/* AUTH */
+.auth {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.authBox {
+  background: #111827;
+  padding: 30px;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 280px;
+}
+
+.authBox input {
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  background: #1f2937;
+  color: white;
+}
+
+.authBox button {
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  background: #2563eb;
+  color: white;
+}
+
+#authMsg {
+  font-size: 12px;
+}
+
+/* APP */
+.app {
+  display: flex;
+  height: 100vh;
+}
+
+.hidden {
+  display: none;
+}
+
+/* SIDEBAR */
+.sidebar {
+  width: 240px;
+  background: #111827;
+  padding: 20px;
+}
+
+.sidebar input {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  background: #1f2937;
+  border: none;
+  color: white;
+}
+
+.genre {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.genre:hover,
+.active {
+  background: #1b2838;
+  color: #66c0f4;
+}
+
+/* MAIN */
+main {
+  flex: 1;
+  padding: 20px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 15px;
+}
+
+.game {
+  background: #1b2838;
+  padding: 15px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.game:hover {
+  transform: scale(1.05);
+}
+
+/* GAME SCREEN */
+#gameScreen {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: black;
+}
+
+#ui {
+  display: flex;
+  gap: 15px;
+  padding: 10px;
+  background: #111827;
+}
+
+canvas {
+  width: 100%;
+  height: calc(100vh - 50px);
+  background: black;
+}
