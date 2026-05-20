@@ -82,3 +82,21 @@ CREATE TABLE Review (
     FOREIGN KEY (user_id) REFERENCES User(id),
     FOREIGN KEY (game_id) REFERENCES Game(id)
 );
+
+CREATE TABLE logros (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    id_juego INT,
+    titulo VARCHAR(100),
+    descripcion VARCHAR(255),
+    puntos INT,
+    FOREIGN KEY (id_juego) REFERENCES juegos(id) ON DELETE CASCADE
+);
+
+CREATE TABLE logros_usuarios (
+    id_usuario INT,
+    id_logro INT,
+    fecha_desbloqueo TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (id_usuario, id_logro),
+    FOREIGN KEY (id_usuario) REFERENCES usuarios(id),
+    FOREIGN KEY (id_logro) REFERENCES logros(id)
+);

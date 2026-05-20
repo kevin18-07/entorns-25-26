@@ -1,3 +1,4 @@
+
 const API = "http://127.0.0.1:5000";
 
 // =====================
@@ -9,29 +10,23 @@ async function login() {
   const username = document.getElementById("user").value;
   const password = document.getElementById("pass").value;
 
-  try {
-    const res = await fetch(`${API}/login`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ username, password })
-    });
+  const res = await fetch(`${API}/login`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ username, password })
+  });
 
-    const data = await res.json();
+  const data = await res.json();
 
-    if (data.coderesponse === "1") {
-      currentUser = data.data;
+  if (data.coderesponse === "1") {
+    currentUser = data.data;
 
-      document.getElementById("authScreen").style.display = "none";
-      document.getElementById("launcher").classList.remove("hidden");
+    document.getElementById("authScreen").style.display = "none";
+    document.getElementById("launcher").classList.remove("hidden");
 
-      loadGames();
-    } else {
-      document.getElementById("authMsg").innerText = "❌ Login incorrecto";
-    }
-
-  } catch (err) {
-    console.error(err);
-    document.getElementById("authMsg").innerText = "❌ Error conexión backend";
+    render();
+  } else {
+    document.getElementById("authMsg").innerText = "❌ Login incorrecto";
   }
 }
 
@@ -39,61 +34,25 @@ async function signup() {
   const username = document.getElementById("user").value;
   const password = document.getElementById("pass").value;
 
-  try {
-    const res = await fetch(`${API}/register`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ username, password })
-    });
+  const res = await fetch(`${API}/register`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ username, password })
+  });
 
-    const data = await res.json();
-    document.getElementById("authMsg").innerText = data.msg;
-
-  } catch (err) {
-    console.error(err);
-    document.getElementById("authMsg").innerText = "❌ Error register backend";
-  }
+  const data = await res.json();
+  document.getElementById("authMsg").innerText = data.msg;
 }
 
 // =====================
-// GAMES DATA
+// GAMES
 // =====================
-let games = [
-  {
-    id: "snake",
-    title: "🐍 Snake",
-    genre: "clasicos",
-    price: 0,
-    description: "El clásico juego de la serpiente. Come y crece sin chocarte."
-  },
-  {
-    id: "pong",
-    title: "🧱 Pong",
-    genre: "clasicos",
-    price: 0,
-    description: "El mítico juego de tenis 2D retro."
-  },
-  {
-    id: "flappy",
-    title: "🐦 Flappy Bird",
-    genre: "arcade",
-    price: 0,
-    description: "Evita los tubos y sobrevive el máximo tiempo posible."
-  },
-  {
-    id: "clicker",
-    title: "🎯 Clicker Game",
-    genre: "arcade",
-    price: 0,
-    description: "Haz clic lo más rápido posible y consigue puntos."
-  },
-  {
-    id: "tetris",
-    title: "🟪 Tetris",
-    genre: "clasicos",
-    price: 2.99,
-    description: "Encaja bloques y completa líneas sin parar."
-  }
+const games = [
+  { id: "snake", title: "🐍 Snake", genre: "clasicos", description: "Come sin chocarte." },
+  { id: "pong", title: "🧱 Pong", genre: "clasicos", description: "Tenis retro." },
+  { id: "flappy", title: "🐦 Flappy Bird", genre: "arcade", description: "Evita tubos." },
+  { id: "clicker", title: "🎯 Clicker", genre: "arcade", description: "Haz clicks." },
+  { id: "tetris", title: "🟪 Tetris", genre: "clasicos", description: "Encaja bloques." }
 ];
 
 let selectedGame = null;
@@ -103,7 +62,7 @@ let search = "";
 const container = document.getElementById("games");
 
 // =====================
-// RENDER GAMES
+// RENDER STORE
 // =====================
 function render() {
 
@@ -128,41 +87,31 @@ function render() {
     div.innerHTML = `
       <h3>${g.title}</h3>
       <p>${g.genre}</p>
-      <small>${g.price} €</small>
     `;
 
-    div.onclick = () => showGameDetail(g);
+    div.onclick = () => showGame(g);
 
     container.appendChild(div);
   });
 }
 
 // =====================
-// GAME DETAIL VIEW
+// GAME DETAIL
 // =====================
-function showGameDetail(game) {
+function showGame(game) {
   selectedGame = game;
 
   container.innerHTML = `
     <div class="game-detail">
       <h2>${game.title}</h2>
       <p>${game.description}</p>
-      <p><b>Precio:</b> ${game.price} €</p>
 
-      <button onclick="playGame()">
-        ▶ Jugar
-      </button>
-
-      <button onclick="render()">
-        ⬅ Volver
-      </button>
+      <button onclick="playGame()">▶ Jugar</button>
+      <button onclick="render()">⬅ Volver</button>
     </div>
   `;
 }
 
-// =====================
-// PLAY GAME
-// =====================
 function playGame() {
   document.getElementById("launcher").style.display = "none";
   document.getElementById("gameScreen").style.display = "block";
@@ -170,42 +119,6 @@ function playGame() {
   document.getElementById("title").innerText = selectedGame.title;
 
   startGame(selectedGame.id);
-}
-
-// =====================
-// SEARCH
-// =====================
-document.getElementById("search").addEventListener("input", e => {
-  search = e.target.value.toLowerCase();
-  render();
-});
-
-// =====================
-// FILTERS
-// =====================
-document.querySelectorAll(".genre").forEach(btn => {
-  btn.addEventListener("click", () => {
-    document.querySelectorAll(".genre").forEach(b => b.classList.remove("active"));
-    btn.classList.add("active");
-    currentGenre = btn.dataset.genre;
-    render();
-  });
-});
-
-// =====================
-// GAME SCREEN
-// =====================
-function openGame(id, name) {
-  document.getElementById("launcher").style.display = "none";
-  document.getElementById("gameScreen").style.display = "block";
-  document.getElementById("title").innerText = name;
-
-  startGame(id);
-}
-
-function back() {
-  document.getElementById("launcher").style.display = "flex";
-  document.getElementById("gameScreen").style.display = "none";
 }
 
 // =====================
@@ -221,17 +134,227 @@ function resize() {
 window.addEventListener("resize", resize);
 resize();
 
+// =====================
+// LOOP CONTROL
+// =====================
+let loopId = null;
+
+// =====================
+// GAME STATE
+// =====================
+
+// Snake
+let snake, dir, food, tick;
+
+// Pong
+let ball, p1, p2, scoreL, scoreR;
+
+// Flappy
+let birdY, birdV, pipes;
+
+// Clicker
+let clicks;
+
+// Tetris
+let tY;
+
+// =====================
+// START GAME
+// =====================
 function startGame(id) {
+
+  cancelAnimationFrame(loopId);
+
+  snake = [{ x: 200, y: 200 }];
+  dir = "right";
+  food = random();
+  tick = 0;
+
+  ball = { x: 300, y: 200, vx: 5, vy: 3 };
+  p1 = 200;
+  p2 = 200;
+  scoreL = 0;
+  scoreR = 0;
+
+  birdY = 200;
+  birdV = 0;
+  pipes = [{ x: 600, h: 150 }];
+
+  clicks = 0;
+  tY = 0;
+
+  document.onkeydown = (e) => {
+
+    if (id === "snake") {
+      if (e.key === "ArrowUp") dir = "up";
+      if (e.key === "ArrowDown") dir = "down";
+      if (e.key === "ArrowLeft") dir = "left";
+      if (e.key === "ArrowRight") dir = "right";
+    }
+
+    if (e.key === "w") p1 -= 20;
+    if (e.key === "s") p1 += 20;
+    if (e.key === "ArrowUp") p2 -= 20;
+    if (e.key === "ArrowDown") p2 += 20;
+
+    if (id === "flappy") birdV = -8;
+
+    if (id === "clicker") clicks++;
+  };
+
+  canvas.onclick = () => {
+    if (id === "clicker") clicks++;
+  };
+
+  loop(id);
+}
+
+// =====================
+// LOOP
+// =====================
+function loop(id) {
+
+  loopId = requestAnimationFrame(() => loop(id));
+
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  ctx.fillStyle = "white";
-  ctx.font = "30px Arial";
+  // =====================
+  // SNAKE
+  // =====================
+  if (id === "snake") {
 
-  if (id === "snake") ctx.fillText("🐍 Snake", 100, 100);
-  if (id === "pong") ctx.fillText("🧱 Pong", 100, 100);
-  if (id === "flappy") ctx.fillText("🐦 Flappy", 100, 100);
-  if (id === "clicker") ctx.fillText("🎯 Clicker", 100, 100);
-  if (id === "tetris") ctx.fillText("🟪 Tetris", 100, 100);
+    tick++;
+
+    if (tick % 6 === 0) {
+
+      let head = { ...snake[0] };
+
+      if (dir === "right") head.x += 10;
+      if (dir === "left") head.x -= 10;
+      if (dir === "up") head.y -= 10;
+      if (dir === "down") head.y += 10;
+
+      // colisión paredes
+      if (
+        head.x < 0 || head.x > canvas.width ||
+        head.y < 0 || head.y > canvas.height
+      ) {
+        alert("💀 GAME OVER");
+        back();
+        return;
+      }
+
+      snake.unshift(head);
+
+      if (head.x === food.x && head.y === food.y) {
+        food = random();
+      } else {
+        snake.pop();
+      }
+    }
+
+    ctx.fillStyle = "lime";
+    snake.forEach(s => ctx.fillRect(s.x, s.y, 10, 10));
+
+    ctx.fillStyle = "red";
+    ctx.fillRect(food.x, food.y, 10, 10);
+  }
+
+  // =====================
+  // PONG
+  // =====================
+  if (id === "pong") {
+
+    ball.x += ball.vx;
+    ball.y += ball.vy;
+
+    if (ball.y < 0 || ball.y > canvas.height) ball.vy *= -1;
+
+    if (ball.x < 20 && ball.y > p1 && ball.y < p1 + 100) ball.vx *= -1;
+    if (ball.x > canvas.width - 20 && ball.y > p2 && ball.y < p2 + 100) ball.vx *= -1;
+
+    if (ball.x < 0) {
+      scoreR++;
+      resetBall();
+    }
+
+    if (ball.x > canvas.width) {
+      scoreL++;
+      resetBall();
+    }
+
+    ctx.fillStyle = "white";
+    ctx.fillRect(10, p1, 10, 100);
+    ctx.fillRect(canvas.width - 20, p2, 10, 100);
+    ctx.fillRect(ball.x, ball.y, 10, 10);
+
+    ctx.fillText(scoreL + " - " + scoreR, canvas.width / 2, 50);
+  }
+
+  // =====================
+  // FLAPPY
+  // =====================
+  if (id === "flappy") {
+
+    birdV += 0.5;
+    birdY += birdV;
+
+    pipes.forEach(p => {
+      p.x -= 3;
+
+      ctx.fillStyle = "green";
+      ctx.fillRect(p.x, 0, 50, p.h);
+      ctx.fillRect(p.x, p.h + 150, 50, canvas.height);
+    });
+
+    if (pipes[pipes.length - 1].x < 300) {
+      pipes.push({ x: 600, h: Math.random() * 200 });
+    }
+
+    ctx.fillStyle = "yellow";
+    ctx.fillRect(100, birdY, 20, 20);
+  }
+
+  // =====================
+  // CLICKER
+  // =====================
+  if (id === "clicker") {
+    ctx.fillStyle = "white";
+    ctx.font = "30px Arial";
+    ctx.fillText("Clicks: " + clicks, 100, 100);
+  }
+
+  // =====================
+  // TETRIS
+  // =====================
+  if (id === "tetris") {
+    ctx.fillStyle = "cyan";
+    ctx.fillRect(200, tY, 20, 20);
+    tY += 3;
+    if (tY > canvas.height) tY = 0;
+  }
+}
+
+// =====================
+// UTIL
+// =====================
+function random() {
+  return {
+    x: Math.floor(Math.random() * 50) * 10,
+    y: Math.floor(Math.random() * 50) * 10
+  };
+}
+
+// =====================
+// BACK
+// =====================
+function back() {
+  cancelAnimationFrame(loopId);
+
+  document.getElementById("launcher").style.display = "flex";
+  document.getElementById("gameScreen").style.display = "none";
+
+  document.onkeydown = null;
 }
 
 // INIT
