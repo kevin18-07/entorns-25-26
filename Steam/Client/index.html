@@ -1,66 +1,62 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<title>Steam Clone</title>
-<link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <title>VaporForge | Indie Gaming Hub</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
 
-<!-- ===================== -->
-<!-- LOGIN -->
-<!-- ===================== -->
 <div id="authScreen" class="auth">
+    <div class="authBox">
+        <h1>⚡ VaporForge</h1>
+        <p class="subtitle">Accede a la forja de videojuegos</p>
 
-  <div class="authBox">
-    <h1>🎮 Steam Clone</h1>
+        <input id="user" placeholder="Nombre de usuario">
+        <input id="pass" type="password" placeholder="Contraseña de seguridad">
 
-    <input id="user" placeholder="Usuario">
-    <input id="pass" type="password" placeholder="Contraseña">
+        <div class="auth-buttons">
+            <button onclick="login()" class="btn-primary">Iniciar Sesión</button>
+            <button onclick="signup()" class="btn-secondary">Registrarse</button>
+        </div>
 
-    <button onclick="login()">Login</button>
-    <button onclick="signup()">Sign Up</button>
-
-    <p id="authMsg"></p>
-  </div>
-
+        <p id="authMsg"></p>
+    </div>
 </div>
 
-<!-- ===================== -->
-<!-- APP -->
-<!-- ===================== -->
 <div id="launcher" class="app hidden">
 
-  <aside class="sidebar">
-    <h2>STEAM 2D</h2>
+    <aside class="sidebar">
+        <h2>VAPORFORGE</h2>
+        <div class="user-status">● En línea</div>
 
-    <input id="search" placeholder="Buscar juegos...">
+        <input id="search" placeholder="Buscar en la biblioteca...">
 
-    <h4>Géneros</h4>
-    <p class="genre active" data-genre="all">Todos</p>
-    <p class="genre" data-genre="arcade">Arcade</p>
-    <p class="genre" data-genre="clasicos">Clásicos</p>
-  </aside>
+        <h4>Categorías</h4>
+        <p class="genre active" data-genre="all">🎮 Todos los títulos</p>
+        <p class="genre" data-genre="arcade">🕹️ Arcade</p>
+        <p class="genre" data-genre="clasicos">👾 Clásicos Retro</p>
+    </aside>
 
-  <main>
-    <h1>Biblioteca</h1>
-    <div id="games" class="grid"></div>
-  </main>
+    <main>
+        <header class="main-header">
+            <h1>Mi Biblioteca</h1>
+            <span class="game-count">Explora tus mundos</span>
+        </header>
+        <div id="games" class="grid"></div>
+    </main>
 
 </div>
 
-<!-- ===================== -->
-<!-- GAME SCREEN -->
-<!-- ===================== -->
 <div id="gameScreen">
-  <div id="ui">
-    <button onclick="back()">⬅ Volver</button>
-    <h2 id="title"></h2>
-  </div>
-  <canvas id="game"></canvas>
+    <div id="ui">
+        <button onclick="back()" class="btn-back">⬅ Salir del juego</button>
+        <h2 id="title"></h2>
+    </div>
+    <canvas id="game"></canvas>
 </div>
 
 <script src="app.js"></script>
 </body>
 </html>
+

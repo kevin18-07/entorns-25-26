@@ -1,4 +1,3 @@
-
 const API = "http://127.0.0.1:5000";
 
 // =====================
@@ -48,7 +47,6 @@ async function signup() {
     });
 
     const data = await res.json();
-
     document.getElementById("authMsg").innerText = data.msg;
 
   } catch (err) {
@@ -58,22 +56,55 @@ async function signup() {
 }
 
 // =====================
-// GAMES
+// GAMES DATA
 // =====================
-let games = [];
+let games = [
+  {
+    id: "snake",
+    title: "🐍 Snake",
+    genre: "clasicos",
+    price: 0,
+    description: "El clásico juego de la serpiente. Come y crece sin chocarte."
+  },
+  {
+    id: "pong",
+    title: "🧱 Pong",
+    genre: "clasicos",
+    price: 0,
+    description: "El mítico juego de tenis 2D retro."
+  },
+  {
+    id: "flappy",
+    title: "🐦 Flappy Bird",
+    genre: "arcade",
+    price: 0,
+    description: "Evita los tubos y sobrevive el máximo tiempo posible."
+  },
+  {
+    id: "clicker",
+    title: "🎯 Clicker Game",
+    genre: "arcade",
+    price: 0,
+    description: "Haz clic lo más rápido posible y consigue puntos."
+  },
+  {
+    id: "tetris",
+    title: "🟪 Tetris",
+    genre: "clasicos",
+    price: 2.99,
+    description: "Encaja bloques y completa líneas sin parar."
+  }
+];
+
+let selectedGame = null;
 let currentGenre = "all";
 let search = "";
 
-async function loadGames() {
-  const res = await fetch(`${API}/games`);
-  const data = await res.json();
-
-  games = data.data || [];
-  render();
-}
-
 const container = document.getElementById("games");
 
+// =====================
+// RENDER GAMES
+// =====================
 function render() {
 
   let filtered = games;
@@ -96,12 +127,49 @@ function render() {
 
     div.innerHTML = `
       <h3>${g.title}</h3>
-      <p>${g.price} €</p>
+      <p>${g.genre}</p>
+      <small>${g.price} €</small>
     `;
 
-    div.onclick = () => openGame(g.id, g.title);
+    div.onclick = () => showGameDetail(g);
+
     container.appendChild(div);
   });
+}
+
+// =====================
+// GAME DETAIL VIEW
+// =====================
+function showGameDetail(game) {
+  selectedGame = game;
+
+  container.innerHTML = `
+    <div class="game-detail">
+      <h2>${game.title}</h2>
+      <p>${game.description}</p>
+      <p><b>Precio:</b> ${game.price} €</p>
+
+      <button onclick="playGame()">
+        ▶ Jugar
+      </button>
+
+      <button onclick="render()">
+        ⬅ Volver
+      </button>
+    </div>
+  `;
+}
+
+// =====================
+// PLAY GAME
+// =====================
+function playGame() {
+  document.getElementById("launcher").style.display = "none";
+  document.getElementById("gameScreen").style.display = "block";
+
+  document.getElementById("title").innerText = selectedGame.title;
+
+  startGame(selectedGame.id);
 }
 
 // =====================
@@ -163,4 +231,8 @@ function startGame(id) {
   if (id === "pong") ctx.fillText("🧱 Pong", 100, 100);
   if (id === "flappy") ctx.fillText("🐦 Flappy", 100, 100);
   if (id === "clicker") ctx.fillText("🎯 Clicker", 100, 100);
+  if (id === "tetris") ctx.fillText("🟪 Tetris", 100, 100);
 }
+
+// INIT
+render();

@@ -128,3 +128,63 @@ canvas {
   height: calc(100vh - 50px);
   background: black;
 }
+
+/* ===================== */
+/* GAME DETAIL VIEW */
+/* ===================== */
+.game-detail {
+  background: #111827;
+  padding: 20px;
+  border-radius: 12px;
+  max-width: 420px;
+  margin: auto;
+  box-shadow: 0 0 20px rgba(0,0,0,0.5);
+  animation: fadeIn 0.2s ease-in;
+}
+
+.game-detail h2 {
+  margin-top: 0;
+  color: #66c0f4;
+}
+
+.game-detail p {
+  color: #cbd5e1;
+  line-height: 1.4;
+}
+
+.game-detail button {
+  margin-top: 10px;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+  border-radius: 6px;
+  background: #2563eb;
+  color: white;
+  width: 100%;
+  transition: 0.2s;
+}
+
+.game-detail button:hover {
+  background: #1d4ed8;
+}
+
+/* botón volver dentro del detalle */
+.game-detail button:last-child {
+  background: #374151;
+}
+
+.game-detail button:last-child:hover {
+  background: #4b5563;
+}
+
+/* animación suave */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
