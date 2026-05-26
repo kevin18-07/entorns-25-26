@@ -1,0 +1,13 @@
+sequenceDiagram
+
+actor Usuario
+participant Frontend
+participant FlaskAPI
+participant MySQL
+
+Usuario->>Frontend: Introduce usuario y contraseña
+Frontend->>FlaskAPI: POST /login
+FlaskAPI->>MySQL: Validar credenciales
+MySQL-->>FlaskAPI: Resultado SQL
+FlaskAPI-->>Frontend: JSON Response
+Frontend-->>Usuario: Login correcto/error
