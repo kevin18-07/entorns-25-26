@@ -1,72 +1,99 @@
-flowchart TD
+graph TD
 
-%% =====================
-%% USUARIO
-%% =====================
-U[👤 Usuario<br>Jugador / Admin]
+%% =========================
+%% USUARIOS
+%% =========================
 
-%% =====================
+U[Usuario / Jugador]
+A[Administrador]
+
+%% =========================
 %% FRONTEND
-%% =====================
-FE[💻 Frontend<br>React / Angular / HTML]
+%% =========================
 
-FE1[Login / Register]
-FE2[Catálogo de juegos]
-FE3[Biblioteca del usuario]
-FE4[Panel Admin]
+subgraph FRONTEND [Frontend - Cliente Web]
 
-FE --> FE1
-FE --> FE2
-FE --> FE3
-FE --> FE4
+F1[index.html]
+F2[styles.css]
+F3[app.js]
+F4[Canvas HTML5]
+F5[Fetch API]
+F6[SPA Interface]
 
-%% =====================
+F1 --> F3
+F2 --> F1
+F3 --> F4
+F3 --> F5
+F3 --> F6
+
+end
+
+%% =========================
 %% BACKEND
-%% =====================
-BE[⚙️ Backend API REST<br>Node.js / Spring Boot]
+%% =========================
 
-C1[Auth Controller]
-C2[Game Controller]
-C3[Library Controller]
-C4[Purchase Controller]
+subgraph BACKEND [Backend - Flask API]
 
-S1[Auth Service]
-S2[Game Service]
-S3[Library Service]
-S4[Purchase Service]
+B1[Server.py]
+B2[DaoServer.py]
+B3[Flask REST API]
+B4[flask_cors]
+B5[JSON Responses]
 
-BE --> C1
-BE --> C2
-BE --> C3
-BE --> C4
+B1 --> B3
+B1 --> B2
+B3 --> B4
+B3 --> B5
 
-C1 --> S1
-C2 --> S2
-C3 --> S3
-C4 --> S4
+end
 
-%% =====================
-%% DATABASE
-%% =====================
-DB[(🗄️ MySQL)]
+%% =========================
+%% BASE DE DATOS
+%% =========================
 
-T1[Users]
-T2[Games]
-T3[Library]
-T4[Categories]
-T5[Orders]
+subgraph DATABASE [Base de Datos MySQL]
 
-DB --> T1
-DB --> T2
-DB --> T3
-DB --> T4
-DB --> T5
+DB1[(User)]
+DB2[(Game)]
+DB3[(Library)]
 
-%% =====================
-%% CONEXIONES PRINCIPALES
-%% =====================
-U --> FE
-FE -->|HTTP REST API| BE
-BE -->|JDBC / ORM| DB
-BE --> FE
-FE --> U
+end
+
+%% =========================
+%% CONEXIONES USUARIO
+%% =========================
+
+U -->|Usa plataforma| F1
+A -->|Gestiona catálogo| F1
+
+%% =========================
+%% COMUNICACIÓN HTTP
+%% =========================
+
+F5 -->|HTTP Requests| B3
+B5 -->|JSON| F5
+
+%% =========================
+%% DAO Y MYSQL
+%% =========================
+
+B2 -->|Consultas SQL| DB1
+B2 -->|Consultas SQL| DB2
+B2 -->|Consultas SQL| DB3
+
+%% =========================
+%% RED LOCAL
+%% =========================
+
+subgraph NETWORK [Red Local / WSL]
+
+N1[WSL Ubuntu]
+N2[0.0.0.0:5000]
+N3[Otros Equipos en la Red]
+
+N1 --> N2
+N3 --> N2
+
+end
+
+B1 --> N1
