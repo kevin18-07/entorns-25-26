@@ -1,0 +1,20 @@
+subgraph Frontend
+A[index.html]
+B[app.js]
+C[Canvas HTML5]
+end
+
+subgraph Backend
+D[Server.py]
+E[DaoServer.py]
+F[(MySQL)]
+end
+
+A --> B
+B --> C
+
+B -->|HTTP Requests| D
+D -->|JSON| B
+
+D --> E
+E --> F
