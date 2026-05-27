@@ -1,6 +1,6 @@
 # 🚀 VaporForge - Plataforma Distribuida de Videojuegos 2D
 
-VaporForge es una aplicación web desarrollada como proyecto DAM2 basada en una arquitectura Cliente-Servidor. La plataforma permite a los usuarios registrarse, iniciar sesión y ejecutar videojuegos 2D directamente desde el navegador utilizando HTML5 Canvas.
+VaporForge es una aplicación web desarrollada como proyecto DAM2 basada en una arquitectura Cliente-Servidor. La plataforma permite a los usuarios registrarse, iniciar sesión, ejecutar y crear videojuegos 2D directamente desde el navegador utilizando HTML5 Canvas.
 
 El proyecto está pensado para funcionar en red local, separando completamente el Frontend, el Backend y la Base de Datos para simular un entorno real de despliegue.
 
