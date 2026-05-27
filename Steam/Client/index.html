@@ -36,6 +36,11 @@
         <p class="genre active" data-genre="all">🎮 Todos los títulos</p>
         <p class="genre" data-genre="arcade">🕹️ Arcade</p>
         <p class="genre" data-genre="clasicos">👾 Clásicos Retro</p>
+
+        <!-- ✅ BOTÓN NUEVO (CREAR JUEGO) -->
+        <button id="createGameBtn" class="create-btn" style="display:none;">
+            ➕ Crear Juego
+        </button>
     </aside>
 
     <main>
@@ -48,6 +53,10 @@
 
 </div>
 
+<!-- ===================== -->
+<!-- GAME SCREEN -->
+<!-- ===================== -->
+
 <div id="gameScreen">
     <div id="ui">
         <button onclick="back()" class="btn-back">⬅ Salir del juego</button>
@@ -56,7 +65,74 @@
     <canvas id="game"></canvas>
 </div>
 
+<!-- ===================== -->
+<!-- MODAL CREAR JUEGO -->
+<!-- ===================== -->
+
+<div id="createGameModal" class="modal hidden">
+
+    <div class="modal-box">
+
+        <h2>🎮 Crear Juego</h2>
+
+        <input id="gameName" placeholder="Nombre del juego">
+
+        <select id="gameType">
+            <option value="">Tipo de juego</option>
+            <option value="arcade">Arcade</option>
+            <option value="clasicos">Clásico</option>
+            <option value="plataformas">Plataformas</option>
+            <option value="shooter">Shooter</option>
+        </select>
+
+        <textarea id="gameDesc" placeholder="Descripción del juego"></textarea>
+
+        <div class="file-section">
+            <label>📁 Archivos del juego</label>
+            <input id="gameFiles" type="file" multiple>
+        </div>
+
+        <button id="submitGameBtn">
+            ✅ Formulario rellenado
+        </button>
+
+        <button id="closeModalBtn">
+            ❌ Cerrar
+        </button>
+
+    </div>
+
+</div>
+
+<div id="createGameModal" class="modal hidden">
+
+  <div class="modal-box">
+
+    <h2>🎮 Crear juego</h2>
+
+    <input id="gameName" placeholder="Nombre del juego">
+
+    <select id="gameType">
+      <option value="">Tipo de juego</option>
+      <option value="arcade">Arcade</option>
+      <option value="clasicos">Clásico</option>
+      <option value="plataformas">Plataformas</option>
+      <option value="shooter">Shooter</option>
+    </select>
+
+    <button id="submitGameBtn">
+      ✅ Formulario rellenado
+    </button>
+
+    <button id="closeModalBtn">
+      ❌ Cerrar
+    </button>
+
+  </div>
+
+</div>
+
 <script src="app.js"></script>
+
 </body>
 </html>
-
