@@ -1,5 +1,22 @@
+const API = "http://127.0.0.1:5000";
 
-const API = "http://192.168.144.69:5000";
+// =====================
+// CREATE GAME BUTTON CONTROL
+// =====================
+
+function hideCreateButton() {
+  const btn = document.getElementById("createGameBtn");
+  if (btn) btn.style.display = "none";
+}
+
+function showCreateButton() {
+  const btn = document.getElementById("createGameBtn");
+  if (btn) btn.style.display = "block";
+}
+
+window.onload = () => {
+  hideCreateButton();
+};
 
 // =====================
 // AUTH
@@ -23,8 +40,13 @@ async function login() {
 
     document.getElementById("authScreen").style.display = "none";
     document.getElementById("launcher").classList.remove("hidden");
+    document.getElementById("createGameBtn").style.display = "block";
 
     render();
+
+    // 🔥 MOSTRAR BOTÓN CREAR JUEGO
+    showCreateButton();
+
   } else {
     document.getElementById("authMsg").innerText = "❌ Login incorrecto";
   }
@@ -218,9 +240,6 @@ function loop(id) {
 
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  // =====================
-  // SNAKE
-  // =====================
   if (id === "snake") {
 
     tick++;
@@ -234,7 +253,6 @@ function loop(id) {
       if (dir === "up") head.y -= 10;
       if (dir === "down") head.y += 10;
 
-      // colisión paredes
       if (
         head.x < 0 || head.x > canvas.width ||
         head.y < 0 || head.y > canvas.height
@@ -260,9 +278,6 @@ function loop(id) {
     ctx.fillRect(food.x, food.y, 10, 10);
   }
 
-  // =====================
-  // PONG
-  // =====================
   if (id === "pong") {
 
     ball.x += ball.vx;
@@ -291,9 +306,6 @@ function loop(id) {
     ctx.fillText(scoreL + " - " + scoreR, canvas.width / 2, 50);
   }
 
-  // =====================
-  // FLAPPY
-  // =====================
   if (id === "flappy") {
 
     birdV += 0.5;
@@ -315,18 +327,12 @@ function loop(id) {
     ctx.fillRect(100, birdY, 20, 20);
   }
 
-  // =====================
-  // CLICKER
-  // =====================
   if (id === "clicker") {
     ctx.fillStyle = "white";
     ctx.font = "30px Arial";
     ctx.fillText("Clicks: " + clicks, 100, 100);
   }
 
-  // =====================
-  // TETRIS
-  // =====================
   if (id === "tetris") {
     ctx.fillStyle = "cyan";
     ctx.fillRect(200, tY, 20, 20);
@@ -357,5 +363,65 @@ function back() {
   document.onkeydown = null;
 }
 
+// =====================
+// CREATE GAME SYSTEM
+// =====================
+
+let modal;
+let createBtn;
+let submitBtn;
+let closeBtn;
+
+// ocultar botón hasta login
+window.onload = () => {
+  const btn = document.getElementById("createGameBtn");
+  if (btn) btn.style.display = "none";
+
+  modal = document.getElementById("createGameModal");
+  createBtn = document.getElementById("createGameBtn");
+  submitBtn = document.getElementById("submitGameBtn");
+  closeBtn = document.getElementById("closeModalBtn");
+
+  if (createBtn) {
+    createBtn.onclick = () => {
+      modal.classList.remove("hidden");
+    };
+  }
+
+  if (closeBtn) {
+    closeBtn.onclick = () => {
+      modal.classList.add("hidden");
+    };
+  }
+
+  if (submitBtn) {
+    submitBtn.onclick = () => {
+
+      const name = document.getElementById("gameName").value;
+      const type = document.getElementById("gameType").value;
+
+      if (!name || !type) {
+        alert("Rellena todos los campos");
+        return;
+      }
+
+      games.push({
+        id: name.toLowerCase().replace(/\s/g, ""),
+        title: "🆕 " + name,
+        genre: type,
+        description: "Juego creado por usuario"
+      });
+
+      render();
+
+      modal.classList.add("hidden");
+
+      document.getElementById("gameName").value = "";
+      document.getElementById("gameType").value = "";
+
+      alert("Formulario rellenado ✔");
+    };
+  }
+};
 // INIT
 render();
